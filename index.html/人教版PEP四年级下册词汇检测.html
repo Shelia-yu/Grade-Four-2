@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>人教版四年级下册单词检测 | Shelia英语分享</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f7ff 0%, #e9f0fa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: '宋体', 'SimSun', 'Times New Roman', serif;
+            padding: 30px 20px;
+        }
+
+        .card {
+            max-width: 850px;
+            width: 100%;
+            background: #ffffffdd;
+            backdrop-filter: blur(2px);
+            border-radius: 64px 64px 48px 48px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255,255,240,0.6);
+            padding: 28px 32px 48px;
+            position: relative;
+        }
+
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .watermark {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #9b7bb5;
+            letter-spacing: 1px;
+            border-left: 3px solid #ffb347;
+            padding-left: 12px;
+            font-family: '宋体', 'SimSun', monospace;
+        }
+
+        .mistake-btn {
+            background: #f5e6d3;
+            border: none;
+            font-family: '宋体', 'SimSun', sans-serif;
+            font-size: 0.9rem;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #c25d2e;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: 0.15s;
+            background: linear-gradient(to bottom, #fff0e0, #ffddbb);
+            border-bottom: 2px solid #c98f5c;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mistake-btn:active {
+            transform: translateY(2px);
+        }
+
+        h1 {
+            font-family: '宋体', 'SimSun', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            color: #2c3e66;
+            margin: 10px 0 20px 0;
+            letter-spacing: 2px;
+            border-bottom: 2px dashed #ffbc6e;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 8px;
+        }
+
+        .title-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sound-area {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0 15px;
+        }
+
+        .sound-btn {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle at 30% 25%, #ffe6c7, #f3bc7a);
+            border-radius: 24px;
+            box-shadow: 0 12px 0 #b4622a, 0 8px 18px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.08s linear;
+            position: relative;
+        }
+
+        .sound-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 6px 0 #b4622a, 0 5px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .sound-icon {
+            font-size: 58px;
+            filter: drop-shadow(2px 3px 2px rgba(0,0,0,0.2));
+            color: #4a2a12;
+        }
+
+        /* 加载动画 */
+        .sound-btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            background: rgba(0,0,0,0.2);
+            animation: pulse 0.8s ease infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.3; }
+        }
+
+        .input-line-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 15px 0 10px;
+            background: #fffef7;
+            padding: 8px 18px;
+            border-radius: 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05), inset 0 1px 2px #fff8;
+        }
+
+        .input-wrapper {
+            flex: 3;
+            min-width: 180px;
+        }
+
+        #answerInput {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1.2rem;
+            font-family: '宋体', 'Segoe UI', monospace;
+            border: 2px solid #ffcd94;
+            border-radius: 50px;
+            outline: none;
+            background: #fffbf0;
+            transition: 0.2s;
+        }
+
+        #answerInput:focus {
+            border-color: #ffa447;
+            box-shadow: 0 0 0 3px rgba(255, 164, 71, 0.2);
+        }
+
+        .feedback-area {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: #f8f3e6;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+
+        .feedback-emoji {
+            font-size: 2rem;
+        }
+
+        .feedback-text {
+            font-size: 1.2rem;
+            color: #3b2a1f;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0 20px;
+        }
+
+        .func-btn {
+            background: #f2e5d2;
+            border: none;
+            font-family: '宋体', 'SimSun', sans-serif;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 48px;
+            font-weight: bold;
+            color: #5a3e2b;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: 0.15s;
+            background: linear-gradient(to bottom, #fff3e6, #ffe0bf);
+            border-bottom: 2px solid #c29a6b;
+        }
+
+        .func-btn:active {
+            transform: translateY(2px);
+        }
+
+        .unit-selector {
+            background: #d9e6f5;
+            color: #2b4f6e;
+            border-bottom: 2px solid #7f9eb5;
+        }
+
+        .chinese-hint {
+            text-align: center;
+            margin: 20px auto 8px;
+            font-size: 1.35rem;
+            color: #3c6e47;
+            background: #fef5e7;
+            padding: 12px;
+            border-radius: 60px;
+            font-weight: 500;
+            min-height: 62px;
+            border-left: 8px solid #ffb347;
+        }
+
+        select {
+            font-size: 1rem;
+            padding: 8px 14px;
+            border-radius: 40px;
+            background: #fff5e8;
+            border: 1px solid #ffc489;
+            font-family: '宋体', monospace;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .extra-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            font-family: '宋体', 'SimSun', monospace;
+        }
+
+        .modal-content {
+            background: #fffef5;
+            border-radius: 48px;
+            max-width: 650px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: auto;
+            padding: 25px 20px 30px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+            position: relative;
+            border: 2px solid #ffcd94;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ffbc6e;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .modal-header h3 {
+            font-size: 1.7rem;
+            color: #c25d2e;
+        }
+
+        .close-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aa6f3c;
+            transition: 0.1s;
+            background: none;
+            border: none;
+            font-weight: bold;
+        }
+
+        .close-modal:hover {
+            color: #e6492d;
+        }
+
+        .mistake-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mistake-item {
+            background: #fff3e0;
+            border-radius: 28px;
+            padding: 12px 18px;
+            border-left: 8px solid #ff8c42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .mistake-word {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2c3e66;
+            min-width: 120px;
+        }
+
+        .mistake-meaning {
+            font-size: 1rem;
+            color: #6b4c2c;
+            flex: 2;
+        }
+
+        .mistake-unit {
+            font-size: 0.85rem;
+            background: #d9c7a8;
+            padding: 4px 12px;
+            border-radius: 30px;
+            color: #3b2a1a;
+        }
+
+        .empty-mistake {
+            text-align: center;
+            padding: 40px;
+            color: #b58b6b;
+            font-size: 1.2rem;
+        }
+
+        /* 发音源选择提示 */
+        .pronounce-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #b87c4a;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 580px) {
+            .card {
+                padding: 20px 18px 32px;
+            }
+            .sound-btn {
+                width: 80px;
+                height: 80px;
+            }
+            .sound-icon {
+                font-size: 44px;
+            }
+            .input-line-area {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .feedback-area {
+                justify-content: center;
+            }
+            .mistake-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header-area">
+        <div class="watermark">@Shelia英语分享</div>
+        <button class="mistake-btn" id="mistakeLibraryBtn">📚 错题库</button>
+    </div>
+
+    <div class="title-wrapper">
+        <h1>人教版四年级下册单词检测</h1>
+    </div>
+
+    <div class="sound-area">
+        <div class="sound-btn" id="speakerBtn">
+            <div class="sound-icon">🔊</div>
+        </div>
+    </div>
+    <div class="pronounce-note">✨ 使用有道词典高清发音，音质清晰准确 ✨</div>
+
+    <div class="input-line-area">
+        <div class="input-wrapper">
+            <input type="text" id="answerInput" placeholder="在这里输入单词..." autocomplete="off">
+        </div>
+        <div class="feedback-area" id="feedbackArea">
+            <span class="feedback-emoji" id="feedbackEmoji">😊</span>
+            <span class="feedback-text" id="feedbackText">等待作答</span>
+        </div>
+    </div>
+
+    <div class="chinese-hint" id="chineseHint"></div>
+
+    <div class="action-buttons">
+        <button class="func-btn" id="replayBtn">🔁 重播</button>
+        <button class="func-btn" id="cantWriteBtn">✍️ 我不会写</button>
+        <button class="func-btn" id="showChineseBtn">📖 显示中文</button>
+        <button class="func-btn unit-selector" id="unitSelectBtn">📚 选择单元 ▼</button>
+        <select id="unitDropdown" style="display: none;"></select>
+    </div>
+    <div class="extra-row" id="unitDisplay" style="justify-content: center; font-size:0.9rem; color:#ad7a4b;">
+        当前单元：全部单词
+    </div>
+</div>
+
+<div id="mistakeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>📖 我的错题库</h3>
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+        </div>
+        <div id="mistakeListContainer" class="mistake-list">
+            <div class="empty-mistake">暂无错题，继续加油 ✨</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== 词汇库（同之前完整版）====================
+    const vocabularyDB = {
+        U1: [
+            { word: "sorry", meaning: "对不起" }, { word: "late", meaning: "迟到；迟发生" },
+            { word: "class", meaning: "课；课程；班；班级" }, { word: "hurry up", meaning: "快点；赶快" },
+            { word: "ready", meaning: "准备好" }, { word: "rule", meaning: "规则；规章" },
+            { word: "classroom", meaning: "教室" }, { word: "turn off", meaning: "关掉" },
+            { word: "light", meaning: "灯；光" }, { word: "blackboard", meaning: "黑板" },
+            { word: "desk", meaning: "书桌；办公桌" }, { word: "chair", meaning: "椅子" },
+            { word: "tidy", meaning: "整洁的；整齐的；使整洁；整理" }, { word: "music", meaning: "音乐" },
+            { word: "wall", meaning: "墙；壁" }, { word: "door", meaning: "门" },
+            { word: "window", meaning: "窗" }, { word: "fan", meaning: "风扇" },
+            { word: "when", meaning: "当......时；什么时候" }, { word: "understand", meaning: "懂；理解" },
+            { word: "newspaper", meaning: "报纸" }, { word: "hand out", meaning: "分发" },
+            { word: "workbook", meaning: "练习册；作业本" }
+        ],
+        U2: [
+            { word: "watch", meaning: "看" }, { word: "TV", meaning: "电视" },
+            { word: "homework", meaning: "家庭作业" }, { word: "first", meaning: "首先；首次；第一" },
+            { word: "wet", meaning: "湿的；未干的" }, { word: "run", meaning: "跑；奔跑" },
+            { word: "house", meaning: "房子" }, { word: "safe", meaning: "安全的" },
+            { word: "word", meaning: "言语；单词；字" }, { word: "wash", meaning: "洗" },
+            { word: "loud", meaning: "说话太大声的；吵闹的" }, { word: "sleep", meaning: "睡觉" },
+            { word: "bedroom", meaning: "卧室" }, { word: "kitchen", meaning: "厨房" },
+            { word: "living room", meaning: "客厅；起居室" }, { word: "study", meaning: "书房" },
+            { word: "bathroom", meaning: "浴室；洗手间" }, { word: "work", meaning: "（花费时间和精力）做（某事）；工作" },
+            { word: "think", meaning: "想；思考" }, { word: "hard", meaning: "努力地；费力地" },
+            { word: "follow", meaning: "遵循，听从（忠告、指示等）" }, { word: "feel", meaning: "觉得；感到" }
+        ],
+        U3: [
+            { word: "over", meaning: "结束（的）" }, { word: "kid", meaning: "小孩" },
+            { word: "dinner", meaning: "（中午或晚上吃的）正餐" }, { word: "art", meaning: "美术；艺术" },
+            { word: "lunch", meaning: "午餐" }, { word: "maths", meaning: "数学" },
+            { word: "get up", meaning: "起床" }, { word: "go to school", meaning: "上学" },
+            { word: "go home", meaning: "回家" }, { word: "go to bed", meaning: "上床睡觉" },
+            { word: "want", meaning: "想要" }, { word: "clock", meaning: "时钟" },
+            { word: "just", meaning: "只是；仅仅；正要" }, { word: "minute", meaning: "分钟" }
+        ],
+        U4: [
+            { word: "trousers", meaning: "裤子" }, { word: "pair", meaning: "（由连在一起的相似两部分构成的）一条，一副" },
+            { word: "clothes", meaning: "衣服；服装" }, { word: "shorts", meaning: "短裤" },
+            { word: "jacket", meaning: "夹克衫" }, { word: "skirt", meaning: "裙子" },
+            { word: "dear", meaning: "天哪" }, { word: "expensive", meaning: "昂贵的；价格高的" },
+            { word: "take", meaning: "买下" }, { word: "cheap", meaning: "便宜的" },
+            { word: "shoe", meaning: "鞋" }, { word: "beautiful", meaning: "美丽的" },
+            { word: "hat", meaning: "帽子" }, { word: "sunglasses", meaning: "太阳镜；墨镜" },
+            { word: "free", meaning: "免费的" }, { word: "large", meaning: "（服装、食物、日用品等）大型号的" },
+            { word: "size", meaning: "尺码；号" }, { word: "list", meaning: "清单；目录" },
+            { word: "try on", meaning: "试穿" }, { word: "any", meaning: "任何的；任一的" }
+        ],
+        U5: [
+            { word: "cow", meaning: "奶牛" }, { word: "horse", meaning: "马" },
+            { word: "sheep", meaning: "绵羊" }, { word: "pig", meaning: "猪" },
+            { word: "chicken", meaning: "鸡；鸡肉" }, { word: "tomato", meaning: "西红柿" },
+            { word: "bee", meaning: "蜜蜂" }, { word: "mouse", meaning: "老鼠" },
+            { word: "carrot", meaning: "胡萝卜" }, { word: "potato", meaning: "土豆" },
+            { word: "green bean", meaning: "四季豆" }, { word: "can", meaning: "（盛食品或饮料的）金属罐" },
+            { word: "a box of", meaning: "一盒，一箱（东西）" }
+        ],
+        U6: [
+            { word: "feed", meaning: "给（人或动物）食物；饲养" }, { word: "pass", meaning: "给；递" },
+            { word: "pick", meaning: "采；摘" }, { word: "milk", meaning: "挤奶" },
+            { word: "knife", meaning: "刀" }, { word: "fork", meaning: "餐叉" },
+            { word: "chopstick", meaning: "(常用复数)筷子" }, { word: "waste", meaning: "浪费；废品" },
+            { word: "food", meaning: "菜肴；食物" }, { word: "delicious", meaning: "美味的；可口的" },
+            { word: "clear the table", meaning: "收拾餐桌" }, { word: "bowl", meaning: "碗" },
+            { word: "spoon", meaning: "勺；匙；调羹" }, { word: "set the table", meaning: "摆放餐具" },
+            { word: "supermarket", meaning: "超市" }, { word: "by oneself", meaning: "（某人）独立地；单独" },
+            { word: "week", meaning: "周；星期" }, { word: "salad", meaning: "蔬菜沙拉" },
+            { word: "ad", meaning: "广告" }
+        ]
+    };
+
+    let allWordsWithUnit = [];
+    for (let unit in vocabularyDB) {
+        vocabularyDB[unit].forEach(item => {
+            allWordsWithUnit.push({
+                word: item.word,
+                meaning: item.meaning,
+                unit: unit
+            });
+        });
+    }
+
+    let currentUnit = "ALL";
+    let currentWordObj = null;
+    let lastWordObj = null;
+    let mistakeList = [];
+    
+    // DOM 元素
+    const speakerBtn = document.getElementById('speakerBtn');
+    const answerInput = document.getElementById('answerInput');
+    const feedbackEmoji = document.getElementById('feedbackEmoji');
+    const feedbackText = document.getElementById('feedbackText');
+    const chineseHintDiv = document.getElementById('chineseHint');
+    const replayBtn = document.getElementById('replayBtn');
+    const cantWriteBtn = document.getElementById('cantWriteBtn');
+    const showChineseBtn = document.getElementById('showChineseBtn');
+    const unitSelectBtn = document.getElementById('unitSelectBtn');
+    const unitDropdown = document.getElementById('unitDropdown');
+    const unitDisplaySpan = document.getElementById('unitDisplay');
+    const mistakeLibraryBtn = document.getElementById('mistakeLibraryBtn');
+    const mistakeModal = document.getElementById('mistakeModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const mistakeListContainer = document.getElementById('mistakeListContainer');
+
+    // ==================== 专业发音引擎 ====================
+    // 使用有道词典官方发音接口 (美式发音, 高清)
+    function speakWordProfessional(word) {
+        return new Promise((resolve, reject) => {
+            // 对短语进行URL编码
+            const encodedWord = encodeURIComponent(word.toLowerCase());
+            // 有道发音API - 美式发音 (type=1 美式, type=0 英式)
+            const audioUrl = `https://dict.youdao.com/dictvoice?audio=${encodedWord}&type=1`;
+            
+            const audio = new Audio();
+            
+            // 添加加载状态
+            speakerBtn.classList.add('loading');
+            
+            audio.oncanplaythrough = () => {
+                speakerBtn.classList.remove('loading');
+                audio.play().catch(err => {
+                    console.warn("有道发音播放失败，尝试备用方案", err);
+                    speakerBtn.classList.remove('loading');
+                    fallbackSpeak(word);
+                });
+            };
+            
+            audio.onerror = () => {
+                console.warn("有道发音加载失败，使用备用语音");
+                speakerBtn.classList.remove('loading');
+                fallbackSpeak(word);
+            };
+            
+            audio.onended = () => {
+                resolve();
+            };
+            
+            audio.src = audioUrl;
+            
+            // 设置超时，避免长时间等待
+            setTimeout(() => {
+                if (speakerBtn.classList.contains('loading')) {
+                    speakerBtn.classList.remove('loading');
+                    fallbackSpeak(word);
+                }
+            }, 3000);
+        });
+    }
+    
+    // 备用发音方案：使用浏览器语音合成（作为保底）
+    function fallbackSpeak(word) {
+        if (!window.speechSynthesis) {
+            console.warn("浏览器不支持语音");
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.85;
+        
+        // 尝试选择更好的英语语音
+        const voices = window.speechSynthesis.getVoices();
+        const preferredVoice = voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Google'));
+        if (preferredVoice) utterance.voice = preferredVoice;
+        
+        window.speechSynthesis.speak(utterance);
+    }
+    
+    // 主发音函数（优先有道高清发音）
+    async function speakWord(word) {
+        try {
+            await speakWordProfessional(word);
+        } catch (e) {
+            fallbackSpeak(word);
+        }
+    }
+
+    // 音效函数
+    function playCorrectSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.frequency.value = 880;
+            gainNode.gain.value = 0.3;
+            oscillator.type = "sine";
+            oscillator.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.6);
+            oscillator.stop(audioCtx.currentTime + 0.5);
+            setTimeout(() => { audioCtx.close().catch(e=>console.log); }, 800);
+        } catch(e) { console.warn("音效失败", e); }
+    }
+
+    function playWrongSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.frequency.value = 440;
+            gainNode.gain.value = 0.25;
+            oscillator.type = "sawtooth";
+            oscillator.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+            oscillator.stop(audioCtx.currentTime + 0.45);
+            setTimeout(() => { audioCtx.close().catch(e=>console.log); }, 700);
+        } catch(e) { console.warn("音效失败", e); }
+    }
+
+    function addToMistakeList(wordObj) {
+        if (!wordObj) return;
+        const exists = mistakeList.some(item => item.word === wordObj.word && item.unit === wordObj.unit);
+        if (!exists) {
+            mistakeList.push({
+                word: wordObj.word,
+                meaning: wordObj.meaning,
+                unit: wordObj.unit
+            });
+        }
+    }
+
+    function getUnitDisplayName(unitCode) {
+        const map = { "U1": "第一单元", "U2": "第二单元", "U3": "第三单元",
+            "U4": "第四单元", "U5": "第五单元", "U6": "第六单元" };
+        return map[unitCode] || unitCode;
+    }
+
+    function renderMistakeModal() {
+        if (mistakeList.length === 0) {
+            mistakeListContainer.innerHTML = '<div class="empty-mistake">✨ 暂无错题，太棒啦！继续加油 ✨</div>';
+            return;
+        }
+        let html = '';
+        mistakeList.forEach(item => {
+            html += `
+                <div class="mistake-item">
+                    <span class="mistake-word">📘 ${item.word}</span>
+                    <span class="mistake-meaning">${item.meaning}</span>
+                    <span class="mistake-unit">${getUnitDisplayName(item.unit)}</span>
+                </div>
+            `;
+        });
+        mistakeListContainer.innerHTML = html;
+    }
+
+    function showMistakeModal() {
+        renderMistakeModal();
+        mistakeModal.style.display = "flex";
+    }
+
+    function closeMistakeModal() {
+        mistakeModal.style.display = "none";
+    }
+
+    function getCurrentWordPool() {
+        if (currentUnit === "ALL") {
+            return allWordsWithUnit;
+        } else {
+            return (vocabularyDB[currentUnit] || []).map(item => ({
+                word: item.word,
+                meaning: item.meaning,
+                unit: currentUnit
+            }));
+        }
+    }
+
+    async function playRandomWord() {
+        const pool = getCurrentWordPool();
+        if (!pool.length) {
+            alert("当前单元没有单词，请切换单元！");
+            return false;
+        }
+        const randomIndex = Math.floor(Math.random() * pool.length);
+        currentWordObj = { ...pool[randomIndex] };
+        lastWordObj = { ...currentWordObj };
+        await speakWord(currentWordObj.word);
+        answerInput.value = "";
+        feedbackEmoji.innerHTML = "😊";
+        feedbackText.innerHTML = "等待作答";
+        chineseHintDiv.innerHTML = "";
+        answerInput.style.borderColor = "#ffcd94";
+        return true;
+    }
+
+    function checkAnswer() {
+        if (!currentWordObj) {
+            feedbackEmoji.innerHTML = "⚠️";
+            feedbackText.innerHTML = "请先点音量按钮";
+            return;
+        }
+        const userAnswer = answerInput.value.trim().toLowerCase();
+        const correctWord = currentWordObj.word.toLowerCase();
+        const normalizedUser = userAnswer.replace(/\s+/g, ' ').trim();
+        const normalizedCorrect = correctWord.replace(/\s+/g, ' ').trim();
+        
+        if (normalizedUser === normalizedCorrect) {
+            playCorrectSound();
+            feedbackEmoji.innerHTML = "😁";
+            feedbackText.innerHTML = "正确！";
+            answerInput.style.borderColor = "#4caf50";
+        } else {
+            playWrongSound();
+            feedbackEmoji.innerHTML = "😭";
+            feedbackText.innerHTML = "错误";
+            answerInput.style.borderColor = "#f44336";
+            if (currentWordObj) {
+                addToMistakeList(currentWordObj);
+            }
+        }
+    }
+
+    async function replayLastWord() {
+        if (lastWordObj) {
+            await speakWord(lastWordObj.word);
+            if (!currentWordObj) currentWordObj = { ...lastWordObj };
+        } else {
+            alert("还没有播放过单词，请先点击音量按钮");
+        }
+    }
+
+    function cantWriteFill() {
+        if (!currentWordObj) {
+            alert("请先播放单词");
+            return;
+        }
+        addToMistakeList(currentWordObj);
+        answerInput.value = currentWordObj.word;
+        checkAnswer();
+        answerInput.focus();
+    }
+
+    function displayChinese() {
+        if (!currentWordObj) {
+            alert("没有播放单词");
+            return;
+        }
+        chineseHintDiv.innerHTML = `📖 ${currentWordObj.meaning}`;
+    }
+
+    function buildUnitDropdown() {
+        const units = [
+            { code: "ALL", name: "📚 所有单元" },
+            { code: "U1", name: "第一单元 (Unit 1)" },
+            { code: "U2", name: "第二单元 (Unit 2)" },
+            { code: "U3", name: "第三单元 (Unit 3)" },
+            { code: "U4", name: "第四单元 (Unit 4)" },
+            { code: "U5", name: "第五单元 (Unit 5)" },
+            { code: "U6", name: "第六单元 (Unit 6)" }
+        ];
+        unitDropdown.innerHTML = "";
+        units.forEach(unit => {
+            const option = document.createElement("option");
+            option.value = unit.code;
+            option.textContent = unit.name;
+            if (currentUnit === unit.code) option.selected = true;
+            unitDropdown.appendChild(option);
+        });
+    }
+
+    function setUnit(unitCode) {
+        currentUnit = unitCode;
+        let unitName = "";
+        switch(currentUnit) {
+            case "ALL": unitName = "全部单词"; break;
+            case "U1": unitName = "第一单元"; break;
+            case "U2": unitName = "第二单元"; break;
+            case "U3": unitName = "第三单元"; break;
+            case "U4": unitName = "第四单元"; break;
+            case "U5": unitName = "第五单元"; break;
+            case "U6": unitName = "第六单元"; break;
+            default: unitName = "全部单词";
+        }
+        unitDisplaySpan.innerHTML = `当前单元：${unitName} (共${getCurrentWordPool().length}词)`;
+        currentWordObj = null;
+        lastWordObj = null;
+        answerInput.value = "";
+        feedbackEmoji.innerHTML = "😊";
+        feedbackText.innerHTML = "等待作答";
+        chineseHintDiv.innerHTML = "";
+        playRandomWord();
+    }
+
+    function showUnitSelector() {
+        if (unitDropdown.style.display === "none" || unitDropdown.style.display === "") {
+            unitDropdown.style.display = "inline-block";
+        } else {
+            unitDropdown.style.display = "none";
+        }
+    }
+
+    function onUnitChange(e) {
+        const selectedVal = e.target.value;
+        setUnit(selectedVal);
+        unitDropdown.style.display = "none";
+    }
+
+    function onEnterPress(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            checkAnswer();
+        }
+    }
+
+    function init() {
+        buildUnitDropdown();
+        setUnit("ALL");
+        
+        speakerBtn.addEventListener('click', async () => {
+            await playRandomWord();
+            feedbackEmoji.innerHTML = "😊";
+            feedbackText.innerHTML = "等待作答";
+            chineseHintDiv.innerHTML = "";
+            answerInput.style.borderColor = "#ffcd94";
+            answerInput.focus();
+        });
+        
+        replayBtn.addEventListener('click', replayLastWord);
+        cantWriteBtn.addEventListener('click', cantWriteFill);
+        showChineseBtn.addEventListener('click', displayChinese);
+        unitSelectBtn.addEventListener('click', showUnitSelector);
+        unitDropdown.addEventListener('change', onUnitChange);
+        answerInput.addEventListener('keypress', onEnterPress);
+        mistakeLibraryBtn.addEventListener('click', showMistakeModal);
+        closeModalBtn.addEventListener('click', closeMistakeModal);
+        window.addEventListener('click', (e) => {
+            if (e.target === mistakeModal) closeMistakeModal();
+        });
+        document.addEventListener('click', function(e) {
+            if (!unitSelectBtn.contains(e.target) && !unitDropdown.contains(e.target)) {
+                if (unitDropdown.style.display === "inline-block") unitDropdown.style.display = "none";
+            }
+        });
+    }
+    
+    init();
+</script>
+</body>
+</html>
